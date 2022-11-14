@@ -45,7 +45,7 @@
 
               $linksToInc = get_all_link ();
               foreach($linksToInc as $linkToInc) {
-                echo '<li class="list-group-item d-flex justify-content-between align-items-center"><a href="'.$linkToInc['url'].'"> '.$linkToInc['title'].'</a><span><a href="edit-link.php?id='.$linkToInc['link_id'].'"><i class="fa-regular fa-pen-to-square me-1 text-warning"></a></i><a href="./controllers/remove_links_controllers" class="fa-solid fa-trash ms-1 text-danger"></a></span></li>';
+                echo '<li class="list-group-item d-flex justify-content-between align-items-center"><a href="'.$linkToInc['url'].'"> '.$linkToInc['title'].'</a><span><a href="edit-link.php?id='.$linkToInc['link_id'].'"><i class="fa-regular fa-pen-to-square me-1 text-warning"></a></i><a href="./controllers/remove_links_controller.php" class="fa-solid fa-trash ms-1 text-danger"></a></span></li>';
               }
             ?>
               
