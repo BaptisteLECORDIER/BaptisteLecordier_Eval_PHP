@@ -1,4 +1,8 @@
+
 -- Sélection de la base de données links_manager_dev
+
+CREATE DATABASE IF NOT EXISTS links_manager_dev;
+
 
 USE `links_manager_dev`;
 

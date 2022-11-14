@@ -36,11 +36,19 @@ function db_connect(): PDO
  * Fonction qui permet de récupérer le tableau des enregistrements de la table des liens
  * @return array
  */
-function get_all_link()
-{
-    // TODO implement function
-}
 
+
+function get_all_link () {
+    $conn = new mysqli("localhost", "root", "", "links_manager_dev");
+    $result = $conn->query("SELECT * FROM `links`");
+    $resultTab = [];
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            array_push($resultTab, $row) ;
+        }
+    } 
+    return $resultTab;
+}
 
 /**
  * Fonction qui permet de récupérer un enregistrement à partir de son identifiant dans la table des liens
@@ -60,7 +68,8 @@ function get_link_by_id($link_id)
  */
 function update_link($data)
 {
-    // TODO implement function
+    $conn = new mysqli("localhost", "root", "", "links_manager_dev");
+    $conn->query("UPDATE links SET link_id = ".$_GET['id'].", title = '".$_GET['title']."', url = '".$_GET['url']."' WHERE link_id = ".$_GET['id']."");
 }
 
 
@@ -69,9 +78,25 @@ function update_link($data)
  * @param array $data: ['title' => 'MDN', 'url' => 'https://developer.mozilla.org/fr/']
  * @return bool
  */
-function create_link($data)
-{
-    // TODO implement function
+
+// 'use links_manager_dev;SELECT link_id FROM links ORDER BY link_id DESC LIMIT 1;'
+
+function get_last_id () {
+    $conn = new mysqli("localhost", "root", "", "links_manager_dev");
+    $result = $conn->query("SELECT link_id FROM `links` ORDER BY link_id DESC LIMIT 1;");
+    $resultTab = [];
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            array_push($resultTab, $row) ;
+        }
+    } 
+    return $resultTab[0]['link_id'];
+
+}
+
+function create_link ($title,$link) {
+    $conn = new mysqli("localhost", "root", "", "links_manager_dev");
+    $conn->query("INSERT INTO links (link_id, title, url) VALUES (".(get_last_id ()+1).",'".$title."','".$link."')");
 }
 
 /**
@@ -79,7 +104,8 @@ function create_link($data)
  *@param integer $link_id
  * @return bool
  */
-function delete_link($link_id)
+function delete_link()
 {
-    // TODO implement function
+    $conn = new mysqli("localhost", "root", "", "links_manager_dev");
+    $conn->query("DELETE FROM links WHERE link_id = ".$_GET['id'].";");
 }
